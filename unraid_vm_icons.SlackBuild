@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Slackware build script for unraid-vm-icons
+
+PRGNAM=unraid_vm_icons
+VERSION=${VERSION:-2023.05.05}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_lanjelin}
+PKGTYPE=${PKGTYPE:-txz}
+TMP=${TMP:-tmp/}
+PKG=$TMP/package-$PRGNAM
+#OUTPUT=${OUTPUT:-.}
+CWD=$(pwd)
+OUTPUT=$CWD
+ICONDIR=$PKG/usr/local/emhttp/plugins/dynamix.vm.manager/templates/images/
+
+# Automatically determine the architecture we're building on:
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+    # Unless $ARCH is already set, use uname -m for all other archs:
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+mkdir -p $PKG/install $ICONDIR
+cat $CWD/slack-desc > $PKG/install/slack-desc
+find $CWD/icons -ctime -1 -name "*.png" | xargs -I '{}' cp '{}' $ICONDIR
+cd $PKG && chown -R 0:0 . && chmod -R 644 .
+makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
