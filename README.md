@@ -1,30 +1,20 @@
 # unraid_vm_icons
 
-A docker container that downloads and installs additional custom VM icons to the Unraid VM Manager.
+This is a fork of [SpaceinvaderOne](https://github.com/SpaceinvaderOne/unraid_vm_icons)s excellent Docker Container for adding VM icons to the Unraid VM Manager.  
 
-Please install this from the Unraid community applications plugin.
+I wanted to go with a different approach, as I want as little as possible clutter among my containers.
 
-I hope that people will submit custom icons to this repo which once approved will be added to the icons available to download for all.
+All the icons have been compiled into a Slackware Package, that unRaid can install on boot.  
+This will install all the included icons, but not touch the original ones.  
 
-Usage
+### Installing
+To install the icons, grab the latest .txz-file from the [releases](https://github.com/Lanjelin/unraid_vm_icons/releases/), and store it somewhere on your server.  
+Open a terminal, and navigate to the file, then run `installpkg unraid_vm_icons.txz`, and you should recieve a promt that the contents have been installed.  
+To make the icons install on boot, move the .txz-file to the extra-folder on the flash drive; `mv unraid_vm_icons.txz /boot/extra`  
 
-After install Container should be set to auto start so icons are synced everytime the server or array starts.
+### Uninstalling
+Should you wish to uninstall the icons, remove the file from /boot/extra, take note of it's exact name,
+then run eg. `removepkg unraid_vm_icons-2023.05.05-x86_64-1_lanjelin` (without the file extension).
 
-Basic
-Unraid template settings
-1. Choose which custom icons you want to be installed from the drop downs. (Windows, Linux macOS, FreeBSD based (pfSense Freenas etc), and 'Other' Oses )
-2. Choose wether you want to keep the existing stock vm icons (recommended to keep)
-   Setting this to no will remove the stock unraid vm icons from the vm manager.
-3. Set wether all icons are redownloaded when container starts.
-    Setting this as yes will clear all vm icons then redownload all choosen icons from github repo. 
-    Setting to yes will on every start download any new icons in selected sections.
-    (This is also useful if you deceide you no longer want a choosen section of icons anymore)
- The default is set to 'no'    
-    
-4. If your server has a beep speaker you can enable a tune to be played each time icons are synced. Yeah silly but fun! :)
-
-Advanced settings (under show more settings)
-1. You can set how long the container should wait before exiting after syncing icons (default 30 seconds)
-Useful only to keep container running for longer if you need to bash into the container for debugging.
-
-Other options dont change
+### Updating
+Follow the instructions for Uninstalling, then Installing.
